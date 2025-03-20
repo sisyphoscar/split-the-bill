@@ -12,9 +12,12 @@ func main() {
 
 	router := gin.Default()
 
+	router.LoadHTMLGlob("resources/templates/*.html")
+
 	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World!",
+		c.HTML(200, "bill.html", gin.H{
+			"title":          "Split The Bill",
+			"brokerEndpoint": configs.Endpoints.Broker,
 		})
 	})
 
