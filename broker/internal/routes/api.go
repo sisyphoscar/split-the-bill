@@ -19,6 +19,7 @@ func Api() *gin.Engine {
 		})
 	})
 
+	// TODO: gRPC to member service
 	router.POST("/members", func(c *gin.Context) {
 		name := c.PostForm("username")
 		email := c.PostForm("email")
