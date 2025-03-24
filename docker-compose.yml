@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  front-end:
+    container_name: front-end
+    build:
+      context: ./front-end
+      dockerfile: frontend.dockerfile
+    ports:
+      - "8081:80"
+    volumes:
+      - ./front-end/.env:/app/.env
+  broker:
+    container_name: broker
+    build:
+      context: ./broker
+      dockerfile: broker.dockerfile
+    ports:
+      - "8082:80"
+    volumes:
+      - ./broker/.env:/app/.env
