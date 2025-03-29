@@ -3,7 +3,10 @@ package main
 import (
 	"log"
 	"member-service/internal/configs"
+	"member-service/internal/database"
 	"member-service/internal/grpc"
+	"member-service/internal/repositories"
+	"member-service/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +14,13 @@ import (
 func main() {
 	configs.LoadConfig()
 
-	go grpc.ListenAndServe()
+	db := database.NewDB()
+	defer database.CloseDB(db)
+
+	repo := repositories.NewMemberRepository(db)
+	service := services.NewMemberService(repo)
+
+	go grpc.ListenAndServe(service)
 
 	router := gin.Default()
 

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "/proto";
+
+message Member {
+    uint64 id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message CreateMemberRequest {
+    string name = 1;
+    string email = 2;
+}
+
+message CreateMemberResponse {
+    Member member = 1;
+}
+
+service MembersService {
+    rpc CreateMember(CreateMemberRequest) returns (CreateMemberResponse);
+}
