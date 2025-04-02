@@ -11,8 +11,11 @@ func LoadConfig() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("env file not found")
-	} else {
-		LoadAppConfig()
-		LoadDatabaseConfig()
+		return
 	}
+
+	LoadAppConfig()
+	LoadDatabaseConfig()
+
+	log.Println("Config loaded successfully")
 }

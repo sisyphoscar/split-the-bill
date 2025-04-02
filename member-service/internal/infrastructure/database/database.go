@@ -13,6 +13,13 @@ func NewDB() *sql.DB {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+
+	err = db.Ping()
+	if err != nil {
+		log.Fatal("Failed to ping database:", err)
+	}
+	log.Println("Connected to database")
+
 	return db
 }
 

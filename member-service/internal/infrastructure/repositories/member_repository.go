@@ -2,8 +2,7 @@ package repositories
 
 import (
 	"database/sql"
-	"member-service/internal/entities"
-	"time"
+	"member-service/internal/domain/member"
 )
 
 type MemberRepository struct {
@@ -16,9 +15,9 @@ func NewMemberRepository(db *sql.DB) *MemberRepository {
 	return &MemberRepository{db: db}
 }
 
-func (r *MemberRepository) Create(member *entities.Member) (entities.Member, error) {
+func (r *MemberRepository) Create(member *member.Member) error {
 	query := "INSERT INTO members (name, email, created_at, updated_at) VALUES ($1, $2, $3, $4) RETURNING id"
-	err := r.db.QueryRow(query, member.Name, member.Email, time.Now(), time.Now()).Scan(&member.ID)
+	err := r.db.QueryRow(query, member.Name, member.Email, member.CreatedAt, member.UpdatedAt).Scan(&member.ID)
 
-	return *member, err
+	return err
 }
