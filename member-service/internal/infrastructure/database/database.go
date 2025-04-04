@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"member-service/internal/configs"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -13,6 +14,11 @@ func NewDB() *sql.DB {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+
+	// Set connection pool settings
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(5)
+	db.SetConnMaxLifetime(30 * time.Minute)
 
 	err = db.Ping()
 	if err != nil {
