@@ -17,6 +17,16 @@ services:
       - "8082:80"
     volumes:
       - ./broker/.env:/app/.env
+  member-service:
+    container_name: member-service
+    build:
+      context: ./member-service
+      dockerfile: member-service.dockerfile
+    ports:
+      - "8083:80"
+      - "8084:81"
+    volumes:
+      - ./member-service/.env:/app/.env
   postgres17:
     image: postgres:17
     container_name: postgres17

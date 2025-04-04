@@ -16,7 +16,7 @@ type MemberServer struct {
 }
 
 func Listen(service *member.MemberService) {
-	lis, err := net.Listen("tcp", configs.App.Domain+":"+configs.App.GRPC_Port)
+	lis, err := net.Listen("tcp", "0.0.0.0:"+configs.App.GRPC_Port)
 	if err != nil {
 		log.Fatalf("Failed to listen for gRPC: %v", err)
 	}
@@ -28,6 +28,6 @@ func Listen(service *member.MemberService) {
 	log.Printf("gRPC Server started on port %s", configs.App.GRPC_Port)
 
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Failed to listen for gRPC: %v", err)
+		log.Fatalf("Failed to serve gRPC: %v", err)
 	}
 }
