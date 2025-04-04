@@ -13,5 +13,6 @@ func LoadConfig() {
 		log.Fatal("env file not found")
 	} else {
 		LoadAppConfig()
+		LoadMemberServiceConfig()
 	}
 }

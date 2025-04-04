@@ -1,14 +1,14 @@
 package routes
 
 import (
+	"broker/internal/handlers"
 	"broker/internal/middlewares"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Api() *gin.Engine {
+func Api(memberHandler *handlers.MemberHandler) *gin.Engine {
 	router := gin.Default()
 
 	router.Use(middlewares.Cors())
@@ -19,15 +19,8 @@ func Api() *gin.Engine {
 		})
 	})
 
-	// TODO: gRPC to member service
 	router.POST("/members", func(c *gin.Context) {
-		name := c.PostForm("username")
-		email := c.PostForm("email")
-
-		log.Printf("name: %s, 電子郵件: %s", name, email)
-		c.JSON(http.StatusCreated, gin.H{
-			"message": "新增使用者成功, 成員: " + name + ", 電子郵件: " + email,
-		})
+		memberHandler.CreateMember(c)
 	})
 
 	return router
