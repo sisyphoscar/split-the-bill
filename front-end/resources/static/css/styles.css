@@ -1,0 +1,20 @@
+.custom-purple {
+    background-color: oklch(0.511 0.262 276.966);
+}
+
+.custom-purple:hover {
+    background-color: oklch(0.511 0.262 276.966);
+}
+
+.position-fixed-center {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
