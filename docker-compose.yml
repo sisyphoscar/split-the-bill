@@ -17,6 +17,8 @@ services:
       - "8082:80"
     volumes:
       - ./broker/.env:/app/.env
+    depends_on:
+      - member-service
   member-service:
     container_name: member-service
     build:
@@ -27,6 +29,8 @@ services:
       - "8084:81"
     volumes:
       - ./member-service/.env:/app/.env
+    depends_on:
+      - postgres17
   postgres17:
     image: postgres:17
     container_name: postgres17
